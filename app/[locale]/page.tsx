@@ -13,7 +13,6 @@ export default function Home({
   const { t, i18n } = useTranslation(locale, ['common']);
 
   useEffect(() => {
-    console.log("Printing... :" + locale)
     i18n.reloadResources(i18n.resolvedLanguage, ['common']);
   }, [i18n]);
 

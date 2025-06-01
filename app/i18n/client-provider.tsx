@@ -22,7 +22,7 @@ i18next
     debug: isDev,
     supportedLngs: languages,
     fallbackLng: 'en',
-    ns: ['common', 'footer', 'second-page'],
+    ns: ['common'],
     defaultNS,
     backend: {
       backendOptions: [
