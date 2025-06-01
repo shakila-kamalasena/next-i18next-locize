@@ -52,7 +52,7 @@ i18next
 
 // Load resources
 languages.forEach((lng) => {
-  ['common', 'footer', 'second-page'].forEach((ns) => {
+  ['common'].forEach((ns) => {
     const resModule = require(`../../public/locales/${lng}/${ns}.json`);
     i18next.addResourceBundle(lng, ns, resModule);
   });
