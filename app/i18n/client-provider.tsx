@@ -60,7 +60,6 @@ languages.forEach((lng) => {
 
 export function useTranslation(lng: string, ns?: string | string[], options?: any) {
   const [cookies, setCookie] = useCookies(['NEXT_LOCALE']);
-  const router = useRouter();
   const ret = useTranslationOrg(ns, options);
 
   // Set cookie on client side

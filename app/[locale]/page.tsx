@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect } from 'react';
+import { use } from 'react';
 import { useTranslation } from '../i18n/client-provider';
 
 export default function Home({
@@ -10,12 +10,7 @@ export default function Home({
 }) {
   const { locale } = use(params);
 
-  const { t, i18n } = useTranslation(locale, ['common']);
-
-  useEffect(() => {
-    i18n.reloadResources(i18n.resolvedLanguage, ['common']);
-  }, [i18n]);
-
+  const { t } = useTranslation(locale, ['common']);
 
   return (
     <>
