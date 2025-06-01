@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 import LocizeBackend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
-import { languages, defaultNS } from '../i18n/settings';
+import { languages, defaultNS, fallbackLng } from '../i18n/settings';
 
 // Initialize i18next for client-side
 const isBrowser = typeof window !== 'undefined';
@@ -20,7 +20,7 @@ i18next
   .init({
     debug: isDev,
     supportedLngs: languages,
-    fallbackLng: 'en',
+    fallbackLng: fallbackLng,
     ns: ['common'],
     defaultNS,
     backend: {

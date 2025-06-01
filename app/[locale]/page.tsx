@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { use } from 'react';
+import React, { use } from 'react';
 import { useTranslation } from '../i18n/client-provider';
 
 export default function Home({
@@ -11,7 +10,7 @@ export default function Home({
 }) {
   const { locale } = use(params);
 
-  const { t } = useTranslation(locale, ['common']);
+  const { t } = useTranslation(locale, ['common', 'home']);
 
   return (
     <>
@@ -23,7 +22,7 @@ export default function Home({
       <br />
       {t('common:description')}
       <br />
-      {t('common:for-testing')}
+      {t('common:for-testing')} - {t('home:welcome_message')}
 
     </>
   );
