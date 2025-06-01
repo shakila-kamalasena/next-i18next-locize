@@ -1,6 +1,6 @@
 // POSSIBILITY 1: locize live download usage on client side only
 const LocizeBackend = require('i18next-locize-backend/cjs')
-const ChainedBackend= require('i18next-chained-backend').default
+const ChainedBackend = require('i18next-chained-backend').default
 const LocalStorageBackend = require('i18next-localstorage-backend').default
 
 // If you've configured caching for your locize version, you may not need the i18next-localstorage-backend and i18next-chained-backend plugin.
@@ -20,8 +20,8 @@ module.exports = {
     backendOptions: [{
       expirationTime: 60 * 60 * 1000 // 1 hour
     }, {
-      projectId: 'd3b405cf-2532-46ae-adb8-99e88d876733',
-      // apiKey: 'myApiKey', // to not add the api-key in production
+      projectId: "9617434f-44e6-4ab6-976e-3d5594128d90",
+      apiKey: "d9584ca3-3cc3-4db8-865a-1cdd737d91d2",
       version: 'latest'
     }],
     backends: isBrowser ? [LocalStorageBackend, LocizeBackend] : [],

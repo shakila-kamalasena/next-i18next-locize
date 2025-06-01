@@ -2,7 +2,7 @@ import '../public/app.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Next.js i18n App',
+  title: 'Locize',
   description: 'Next.js App with i18n support',
 };
 

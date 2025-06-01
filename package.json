@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "downloadLocales": "locize download --project-id=d3b405cf-2532-46ae-adb8-99e88d876733 --ver=latest --clean=true --path=./public/locales",
+    "downloadLocales": "locize download --project-id=9617434f-44e6-4ab6-976e-3d5594128d90 --ver=latest --clean=true --path=./public/locales",
     "dev": "next",
     "build": "next build",
     "start": "npm run build && next start -p ${PORT:=3000}"
