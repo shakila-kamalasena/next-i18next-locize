@@ -1,6 +1,5 @@
 import { InitOptions } from 'i18next';
 import LocizeBackend from 'i18next-locize-backend';
-import LocalStorageBackend from 'i18next-localstorage-backend';
 
 const isBrowser = typeof window !== 'undefined';
 const isDev = process.env.NODE_ENV === 'development';

@@ -1,7 +1,7 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect, ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
 import i18next from 'i18next';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 import { useCookies } from 'react-cookie';
@@ -9,7 +9,6 @@ import LocizeBackend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import { languages, defaultNS } from '../i18n/settings';
-import resourcesToBackend from 'i18next-resources-to-backend';
 
 // Initialize i18next for client-side
 const isBrowser = typeof window !== 'undefined';
@@ -48,17 +47,17 @@ i18next
     },
     // Remove properties not supported by the TypeScript definitions
     saveMissing: isDev && isBrowser
-  } as any); // Use type assertion to bypass TypeScript errors
+  } as import('i18next').InitOptions);
 
 // Load resources
 languages.forEach((lng) => {
-  ['common'].forEach((ns) => {
-    const resModule = require(`../../public/locales/${lng}/${ns}.json`);
-    i18next.addResourceBundle(lng, ns, resModule);
+  ['common'].forEach(async (ns) => {
+    const resModule = await import(`../../public/locales/${lng}/${ns}.json`);
+    i18next.addResourceBundle(lng, ns, resModule.default || resModule);
   });
 });
 
-export function useTranslation(lng: string, ns?: string | string[], options?: any) {
+export function useTranslation(lng: string, ns?: string | string[], options?: Record<string, unknown>) {
   const [cookies, setCookie] = useCookies(['NEXT_LOCALE']);
   const ret = useTranslationOrg(ns, options);
 

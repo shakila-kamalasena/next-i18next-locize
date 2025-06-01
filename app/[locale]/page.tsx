@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { use } from 'react';
 import { useTranslation } from '../i18n/client-provider';
 
@@ -22,6 +23,7 @@ export default function Home({
       <br />
       {t('common:description')}
       <br />
+      {t('common:for-testing')}
 
     </>
   );

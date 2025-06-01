@@ -1,16 +1,17 @@
+/* eslint-disable no-undef */
 // POSSIBILITY 1: locize live download usage on client side only
-const LocizeBackend = require('i18next-locize-backend/cjs')
-const ChainedBackend = require('i18next-chained-backend').default
-const LocalStorageBackend = require('i18next-localstorage-backend').default
+import LocizeBackend from 'i18next-locize-backend/cjs';
+import ChainedBackend from 'i18next-chained-backend';
+import LocalStorageBackend from 'i18next-localstorage-backend';
 
 // If you've configured caching for your locize version, you may not need the i18next-localstorage-backend and i18next-chained-backend plugin.
 // https://www.locize.com/docs/caching
 
 const isBrowser = typeof window !== 'undefined'
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NEXT_PUBLIC_NODE_ENV === 'development'
 
-module.exports = {
+export default {
   debug: isDev,
   i18n: {
     defaultLocale: 'en',

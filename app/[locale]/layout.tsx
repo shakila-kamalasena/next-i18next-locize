@@ -1,7 +1,8 @@
 'use client';
 
+import React from 'react';
 import { ClientProvider } from '../i18n/client-provider';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { usePathname } from 'next/navigation';
 
