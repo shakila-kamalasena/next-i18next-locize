@@ -5,9 +5,9 @@ import { useState, useEffect, ReactNode } from 'react';
 import i18next from 'i18next';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 import { useCookies } from 'react-cookie';
-import LocizeBackend from 'i18next-locize-backend';
+// import LocizeBackend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
-import LocalStorageBackend from 'i18next-localstorage-backend';
+// import LocalStorageBackend from 'i18next-localstorage-backend';
 import { languages, defaultNS, fallbackLng } from '../i18n/settings';
 
 // Initialize i18next for client-side
@@ -21,23 +21,23 @@ i18next
     debug: isDev,
     supportedLngs: languages,
     fallbackLng: fallbackLng,
-    ns: ['common'],
+    ns: ['common', 'home'],
     defaultNS,
-    backend: {
-      backendOptions: [
-        {
-          expirationTime: 60 * 60 * 1000 // 1 hour
-        },
-        {
-          projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
-          version: 'latest'
-        }
-      ],
-      backends: isBrowser ? [
-        LocalStorageBackend,
-        LocizeBackend
-      ] : []
-    },
+    // backend: {
+    //   backendOptions: [
+    //     {
+    //       expirationTime: 5 * 60 * 1000 // 5min
+    //     },
+    //     {
+    //       projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
+    //       version: 'latest'
+    //     }
+    //   ],
+    //   backends: isBrowser ? [
+    //     LocalStorageBackend,
+    //     LocizeBackend
+    //   ] : []
+    // },
     load: 'languageOnly',
     interpolation: {
       escapeValue: false,
@@ -45,13 +45,12 @@ i18next
     react: {
       useSuspense: false,
     },
-    // Remove properties not supported by the TypeScript definitions
     saveMissing: isDev && isBrowser
   } as import('i18next').InitOptions);
 
 // Load resources
 languages.forEach((lng) => {
-  ['common'].forEach(async (ns) => {
+  ['common', 'home'].forEach(async (ns) => {
     const resModule = await import(`../../public/locales/${lng}/${ns}.json`);
     i18next.addResourceBundle(lng, ns, resModule.default || resModule);
   });
