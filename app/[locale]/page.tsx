@@ -22,7 +22,9 @@ export default function Home({
       <br />
       {t('common:description')}
       <br />
-      {t('common:for-testing')} - {t('home:welcome_message')}
+      {t('common:for-testing')}
+      <br />
+      - {t('home:welcome_message')}
 
     </>
   );
