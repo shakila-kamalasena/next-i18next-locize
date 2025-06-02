@@ -5,9 +5,7 @@ import { useState, useEffect, ReactNode } from 'react';
 import i18next from 'i18next';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 import { useCookies } from 'react-cookie';
-// import LocizeBackend from 'i18next-locize-backend';
-import ChainedBackend from 'i18next-chained-backend';
-// import LocalStorageBackend from 'i18next-localstorage-backend';
+import LocizeBackend from 'i18next-locize-backend/cjs';
 import { languages, defaultNS, fallbackLng } from '../i18n/settings';
 
 // Initialize i18next for client-side
@@ -16,28 +14,19 @@ const isDev = process.env.NODE_ENV === 'development';
 
 i18next
   .use(initReactI18next)
-  .use(ChainedBackend)
+  .use(LocizeBackend)
   .init({
-    debug: isDev,
+    debug: true,
     supportedLngs: languages,
     fallbackLng: fallbackLng,
-    ns: ['common', 'home'],
     defaultNS,
-    // backend: {
-    //   backendOptions: [
-    //     {
-    //       expirationTime: 5 * 60 * 1000 // 5min
-    //     },
-    //     {
-    //       projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
-    //       version: 'latest'
-    //     }
-    //   ],
-    //   backends: isBrowser ? [
-    //     LocalStorageBackend,
-    //     LocizeBackend
-    //   ] : []
-    // },
+    backend: {
+      projectId: process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID,
+      apiKey: process.env.NEXT_PUBLIC_LOCIZE_API_KEY, // to not add the api-key in production, used for saveMissing feature
+      referenceLng: 'en',
+      version: 'latest',
+      loadPath: 'https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}',
+    },
     load: 'languageOnly',
     interpolation: {
       escapeValue: false,
@@ -45,16 +34,9 @@ i18next
     react: {
       useSuspense: false,
     },
+    ns: ['common', 'home'],
     saveMissing: isDev && isBrowser
   } as import('i18next').InitOptions);
-
-// Load resources
-languages.forEach((lng) => {
-  ['common', 'home'].forEach(async (ns) => {
-    const resModule = await import(`../../public/locales/${lng}/${ns}.json`);
-    i18next.addResourceBundle(lng, ns, resModule.default || resModule);
-  });
-});
 
 export function useTranslation(lng: string, ns?: string | string[], options?: Record<string, unknown>) {
   const [cookies, setCookie] = useCookies(['NEXT_LOCALE']);
