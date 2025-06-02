@@ -22,7 +22,7 @@ i18next
     defaultNS,
     backend: {
       projectId: process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID,
-      apiKey: process.env.NEXT_PUBLIC_LOCIZE_API_KEY, // to not add the api-key in production, used for saveMissing feature
+      apiKey: process.env.NEXT_PUBLIC_LOCIZE_API_KEY,
       referenceLng: 'en',
       version: 'latest',
       loadPath: 'https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}',
