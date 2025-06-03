@@ -8,20 +8,19 @@ import { useCookies } from 'react-cookie';
 import LocizeBackend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
-import { languages, defaultNS, fallbackLng } from '../i18n/settings';
+import { languages, defaultNS, fallbackLng, namespaces } from '../i18n/settings';
 
 // Initialize i18next for client-side
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== 'undefined'; // A boolean variable that is true if the code is running in a browser environment, false otherwise (such as on the server).
 const isDev = process.env.NODE_ENV === 'development';
 
 i18next
   .use(initReactI18next)
-  .use(ChainedBackend)
+  .use(ChainedBackend) // Allows chaining multiple backends.
   .init({
-    debug: isDev,
     supportedLngs: languages,
     fallbackLng: fallbackLng,
-    ns: ['common', 'home'],
+    ns: namespaces,
     defaultNS,
     backend: {
       backendOptions: [
@@ -34,27 +33,19 @@ i18next
         }
       ],
       backends: isBrowser ? [
-        LocalStorageBackend,
-        LocizeBackend
+        LocalStorageBackend, // Used for caching translations in the browser's local storage
+        LocizeBackend // Used to fetch translations from the Locize CDN
       ] : []
     },
     load: 'languageOnly',
     interpolation: {
-      escapeValue: false,
+      escapeValue: false, // Disables escaping of translation values because React already escapes values to prevent XSS attacks.
     },
     react: {
       useSuspense: false,
     },
     saveMissing: isDev && isBrowser
   } as import('i18next').InitOptions);
-
-// Load resources
-languages.forEach((lng) => {
-  ['common', 'home'].forEach(async (ns) => {
-    const resModule = await import(`../../public/locales/${lng}/${ns}.json`);
-    i18next.addResourceBundle(lng, ns, resModule.default || resModule);
-  });
-});
 
 export function useTranslation(lng: string, ns?: string | string[], options?: Record<string, unknown>) {
   const [cookies, setCookie] = useCookies(['NEXT_LOCALE']);
