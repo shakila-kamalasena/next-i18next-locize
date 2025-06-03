@@ -18,6 +18,7 @@ i18next
   .use(initReactI18next)
   .use(ChainedBackend) // Allows chaining multiple backends.
   .init({
+    debug: true,
     supportedLngs: languages,
     fallbackLng: fallbackLng,
     ns: namespaces,
@@ -29,6 +30,7 @@ i18next
         },
         {
           projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
+          apiKey: process.env.NEXT_PUBLIC_LOCIZE_API_KEY,
           version: 'latest'
         }
       ],
