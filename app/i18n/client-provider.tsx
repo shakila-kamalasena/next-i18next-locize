@@ -9,10 +9,17 @@ import LocizeBackend from 'i18next-locize-backend';
 import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import { languages, defaultNS, fallbackLng, namespaces } from '../i18n/settings';
+import resourcesToBackend from 'i18next-resources-to-backend/cjs';
 
 // Initialize i18next for client-side
 const isBrowser = typeof window !== 'undefined'; // A boolean variable that is true if the code is running in a browser environment, false otherwise (such as on the server).
 const isDev = process.env.NODE_ENV === 'development';
+
+// Create a backend for loading bundled translations
+const bundledResourcesBackend = resourcesToBackend((language: string, namespace: string) =>
+  import(`../../public/locales/${language}/${namespace}.json`)
+    .catch(() => ({})) // Fallback to empty object if file doesn't exist
+);
 
 i18next
   .use(initReactI18next)
@@ -23,10 +30,11 @@ i18next
     fallbackLng: fallbackLng,
     ns: namespaces,
     defaultNS,
+    partialBundledLanguages: isBrowser && isDev,
     backend: {
       backendOptions: [
         {
-          expirationTime: 5 * 60 * 1000 // 5min
+          expirationTime: 1 * 60 * 1000 // 1min
         },
         {
           projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
@@ -36,8 +44,11 @@ i18next
       ],
       backends: isBrowser ? [
         LocalStorageBackend, // Used for caching translations in the browser's local storage
-        LocizeBackend // Used to fetch translations from the Locize CDN
-      ] : []
+        LocizeBackend, // Used to fetch translations from the Locize CDN
+        bundledResourcesBackend
+      ] : [
+        bundledResourcesBackend
+      ]
     },
     load: 'languageOnly',
     interpolation: {
