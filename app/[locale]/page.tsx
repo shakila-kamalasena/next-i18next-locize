@@ -16,8 +16,6 @@ export default function Home({
     <>
       <h1>Locize</h1>
 
-      {t('change-locale')}
-      <br />
       {t('common:welcome')}
       <br />
       {t('common:description')}
