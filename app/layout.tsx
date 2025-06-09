@@ -1,3 +1,4 @@
+import React from 'react';
 import '../public/app.css';
 import type { Metadata } from 'next';
 

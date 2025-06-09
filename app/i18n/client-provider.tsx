@@ -10,6 +10,8 @@ import ChainedBackend from 'i18next-chained-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
 import { languages, defaultNS, fallbackLng, namespaces } from '../i18n/settings';
 import resourcesToBackend from 'i18next-resources-to-backend/cjs';
+import { locizePlugin } from 'locize';
+
 
 // Initialize i18next for client-side
 const isBrowser = typeof window !== 'undefined'; // A boolean variable that is true if the code is running in a browser environment, false otherwise (such as on the server).
@@ -24,6 +26,7 @@ const bundledResourcesBackend = resourcesToBackend((language: string, namespace:
 i18next
   .use(initReactI18next)
   .use(ChainedBackend) // Allows chaining multiple backends.
+  .use(locizePlugin)
   .init({
     debug: true,
     supportedLngs: languages,
@@ -31,6 +34,7 @@ i18next
     ns: namespaces,
     defaultNS,
     partialBundledLanguages: isBrowser && isDev,
+    preload: namespaces,
     backend: {
       backendOptions: [
         {
