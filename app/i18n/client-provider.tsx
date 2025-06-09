@@ -23,21 +23,6 @@ i18next
     fallbackLng: fallbackLng,
     ns: ['common', 'home'],
     defaultNS,
-    // backend: {
-    //   backendOptions: [
-    //     {
-    //       expirationTime: 5 * 60 * 1000 // 5min
-    //     },
-    //     {
-    //       projectId: '9617434f-44e6-4ab6-976e-3d5594128d90',
-    //       version: 'latest'
-    //     }
-    //   ],
-    //   backends: isBrowser ? [
-    //     LocalStorageBackend,
-    //     LocizeBackend
-    //   ] : []
-    // },
     load: 'languageOnly',
     interpolation: {
       escapeValue: false,
