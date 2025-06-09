@@ -1,5 +1,6 @@
 {
-  "description": "Hallo Welt! waw",
+  "change-locale": "Veränderung",
+  "description": "Hallo Welt!",
   "for-testing": "Meldung testen",
-  "welcome": "Willkommenstest"
+  "welcome": "Willkommens"
 }
